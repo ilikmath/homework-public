@@ -1,0 +1,19 @@
+// 212-Терский-Илья-(Урок 6: конфигурация и сборка программ с CMake)
+
+#include "lib.h"
+#include "config.h"
+
+#include <iostream>
+
+namespace lib {
+
+    int makeSomeSuperJob() {
+        std::cout << "Hello from lib!" << std::endl;
+        return 42;
+    }
+
+    int getVersion() {
+        return (PROJECT_VERSION);
+    }
+
+}
