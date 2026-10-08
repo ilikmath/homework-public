@@ -1,7 +1,7 @@
 # 212-Терский-Илья-(пирамиды на 2D-плоскости)
 
 cmake_minimum_required(VERSION 3.12)
-project(08_pyramids LANGUAGES CXX)
+project(pyramids LANGUAGES CXX)
 
 add_executable(pyramids
     main.cpp

@@ -1,11 +1,11 @@
 # 212-Терский-Илья-(пирамиды на 2D-плоскости: кластеры алгоритма «Волна»)
 # Запуск: gnuplot -p plot.gp
-# Или из окна gnuplot:  load 'C:\Users\ILIK\Projects\homework\08_pyramids\plot.gp'
+# Или из окна gnuplot:  load 'C:\Users\ILIK\Projects\homework\pyramids\plot.gp'
 
 set encoding utf8
 
 if (strlen(system('if exist points.dat echo yes')) == 0) {  # если gnuplot открыт не из папки задания, перехожу в неё
-    cd 'C:\Users\ILIK\Projects\homework\08_pyramids'
+    cd 'C:\Users\ILIK\Projects\homework\pyramids'
 }
 
 if (strlen(system('if exist points.dat echo yes')) == 0) {  # данных ещё нет — запускаю программу
