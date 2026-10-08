@@ -3,9 +3,11 @@
 #include <algorithm>
 #include <cmath>
 
+using namespace std;
+
 namespace {
 
-const double no_data = std::numeric_limits<double>::quiet_NaN();  // ответ, когда чисел не было
+const double no_data = numeric_limits<double>::quiet_NaN();  // ответ, когда чисел не было
 
 }  // namespace
 
@@ -46,14 +48,14 @@ void Std::update(double next) {  // обновляю среднее и сумм�
 }
 
 double Std::eval() const {
-    return count_ == 0 ? no_data : std::sqrt(m2_ / static_cast<double>(count_));
+    return count_ == 0 ? no_data : sqrt(m2_ / static_cast<double>(count_));
 }
 
 const char *Std::name() const { return "std"; }
 
 Percentile::Percentile(int percent)
     : percent_(percent)
-    , name_("pct" + std::to_string(percent)) {}
+    , name_("pct" + to_string(percent)) {}
 
 void Percentile::update(double next) { values_.push_back(next); }
 
@@ -62,13 +64,13 @@ double Percentile::eval() const {  // беру элемент с рангом ce
         return no_data;
     }
 
-    const std::size_t n = values_.size();
-    const std::size_t p = static_cast<std::size_t>(percent_);
-    const std::size_t rank = std::max<std::size_t>(1, (p * n + 99) / 100);  // ceil в целых числах, без ошибок округления
+    const size_t n = values_.size();
+    const size_t p = static_cast<size_t>(percent_);
+    const size_t rank = max<size_t>(1, (p * n + 99) / 100);  // ceil в целых числах, без ошибок округления
 
-    std::vector<double> copy(values_);  // eval константный, поэтому работаю с копией
-    const auto nth = copy.begin() + static_cast<std::ptrdiff_t>(rank - 1);
-    std::nth_element(copy.begin(), nth, copy.end());  // ставит нужный элемент на место без полной сортировки
+    vector<double> copy(values_);  // eval константный, поэтому работаю с копией
+    const auto nth = copy.begin() + static_cast<ptrdiff_t>(rank - 1);
+    nth_element(copy.begin(), nth, copy.end());  // ставит нужный элемент на место без полной сортировки
     return *nth;
 }
 
