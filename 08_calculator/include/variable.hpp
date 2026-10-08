@@ -6,9 +6,11 @@
 
 #include "astnode.hpp"
 
+using namespace std;
+
 class Variable : public ASTNode {  // переменная (одна буква) — лист дерева
   public:
-    explicit Variable(const std::string &name);
+    explicit Variable(const string &name);
 
-    std::string name() const { return repr(); }
+    string name() const { return repr(); }
 };

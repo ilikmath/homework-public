@@ -6,10 +6,12 @@
 
 #include "astnode.hpp"
 
+using namespace std;
+
 class Number : public ASTNode {  // целое число — лист дерева
   public:
     Number(int val)
-        : ASTNode(std::to_string(val))
+        : ASTNode(to_string(val))
         , val_(val) {}
 
     int value() const { return val_; }

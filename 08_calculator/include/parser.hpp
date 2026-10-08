@@ -8,6 +8,8 @@
 #include "astnode.hpp"
 #include "lexer.hpp"
 
+using namespace std;
+
 class Parser {  // парсер рекурсивным спуском: из токенов строит дерево
   public:
     explicit Parser(Lexer &lexer)
@@ -23,7 +25,7 @@ class Parser {  // парсер рекурсивным спуском: из то
   private:
     void next_token();
 
-    std::string describe(Lexer::Token token) const;  // токен словами, для текста ошибки
+    string describe(Lexer::Token token) const;  // токен словами, для текста ошибки
 
     ASTNode *expr();  // сумма/разность
     ASTNode *term();  // произведение/частное

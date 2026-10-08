@@ -5,8 +5,10 @@
 #include <stdexcept>
 #include <string>
 
-class SyntaxError : public std::runtime_error {  // ошибка в выражении, ловлю её в main
+using namespace std;
+
+class SyntaxError : public runtime_error {  // ошибка в выражении, ловлю её в main
   public:
-    explicit SyntaxError(const std::string &message)
-        : std::runtime_error(message) {}
+    explicit SyntaxError(const string &message)
+        : runtime_error(message) {}
 };

@@ -7,10 +7,12 @@
 #include "syntax_error.hpp"
 #include "variable.hpp"
 
+using namespace std;
+
 using Token = Lexer::Token;
 
 ASTNode *Parser::parse() {  // куски дерева держу в unique_ptr: при ошибке они удалятся сами
-    std::unique_ptr<ASTNode> root(expr());
+    unique_ptr<ASTNode> root(expr());
     if (tok_ != Token::End) {  // разобрали выражение, а строка не кончилась
         throw SyntaxError("лишнее в конце выражения: " + describe(tok_));
     }
@@ -19,10 +21,10 @@ ASTNode *Parser::parse() {  // куски дерева держу в unique_ptr:
 
 void Parser::next_token() { tok_ = lexer_.next_token(); }
 
-std::string Parser::describe(Token token) const {
+string Parser::describe(Token token) const {
     switch (token) {
     case Token::Number:
-        return "число " + std::to_string(lexer_.get_number());
+        return "число " + to_string(lexer_.get_number());
     case Token::Operator:
         return "оператор '" + lexer_.get_operator() + "'";
     case Token::Name:
@@ -38,13 +40,13 @@ std::string Parser::describe(Token token) const {
 }
 
 ASTNode *Parser::expr() {  // E -> T | E + T | E - T, цикл даёт 3 - 4 - 5 = (3 - 4) - 5
-    std::unique_ptr<ASTNode> root(term());
+    unique_ptr<ASTNode> root(term());
     while (tok_ == Token::Operator) {
         const char op = lexer_.get_operator().front();
         if (op != '+' && op != '-') {
             break;
         }
-        std::unique_ptr<ASTNode> rhs(term());
+        unique_ptr<ASTNode> rhs(term());
         if (op == '+') {
             root.reset(new Add(root.release(), rhs.release()));
         } else {
@@ -55,13 +57,13 @@ ASTNode *Parser::expr() {  // E -> T | E + T | E - T, цикл даёт 3 - 4 - 
 }
 
 ASTNode *Parser::term() {  // T -> P | T * P | T / P
-    std::unique_ptr<ASTNode> root(prim());
+    unique_ptr<ASTNode> root(prim());
     while (tok_ == Token::Operator) {
         const char op = lexer_.get_operator().front();
         if (op != '*' && op != '/') {
             break;
         }
-        std::unique_ptr<ASTNode> rhs(prim());
+        unique_ptr<ASTNode> rhs(prim());
         if (op == '*') {
             root.reset(new Mul(root.release(), rhs.release()));
         } else {
@@ -72,7 +74,7 @@ ASTNode *Parser::term() {  // T -> P | T * P | T / P
 }
 
 ASTNode *Parser::prim() {  // P -> Number | Name | ( E )
-    std::unique_ptr<ASTNode> node;
+    unique_ptr<ASTNode> node;
     next_token();
     switch (tok_) {
     case Token::Number:

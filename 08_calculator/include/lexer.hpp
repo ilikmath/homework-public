@@ -5,6 +5,8 @@
 #include <istream>
 #include <string>
 
+using namespace std;
+
 class Lexer {  // лексер: режет входную строку на токены (числа, операторы, скобки, имена)
   public:
     enum class Token {
@@ -16,7 +18,7 @@ class Lexer {  // лексер: режет входную строку на то
         Name,
     };
 
-    explicit Lexer(std::istream &in);
+    explicit Lexer(istream &in);
 
     Lexer(const Lexer &other) = delete;
     Lexer &operator=(const Lexer &other) = delete;
@@ -25,9 +27,9 @@ class Lexer {  // лексер: режет входную строку на то
 
     int get_number() const { return number_; }
 
-    std::string get_operator() const { return operator_; }
+    string get_operator() const { return operator_; }
 
-    std::string get_name() const { return name_; }
+    string get_name() const { return name_; }
 
   protected:
     bool isbrace(char ch) const;
@@ -44,14 +46,14 @@ class Lexer {  // лексер: режет входную строку на то
     bool end() const;
 
     State state_;
-    std::string name_;
+    string name_;
     int number_;
-    std::string operator_;
+    string operator_;
     char ch_;
-    std::istream &in_;
+    istream &in_;
 };
 
-inline Lexer::Lexer(std::istream &in)
+inline Lexer::Lexer(istream &in)
     : state_(State::Empty)
     , number_(0)
     , in_(in) {

@@ -13,19 +13,21 @@
 #include "parser.hpp"
 #include "syntax_error.hpp"
 
+using namespace std;
+
 int main() {  // читаю одно выражение и печатаю его дерево набок
 #ifdef _WIN32
     SetConsoleOutputCP(CP_UTF8);
 #endif
 
     try {
-        Lexer lexer(std::cin);
+        Lexer lexer(cin);
         Parser parser(lexer);
 
-        const std::unique_ptr<ASTNode> ast(parser.parse());  // unique_ptr сам удалит дерево в конце
-        ast->print(std::cout);
+        const unique_ptr<ASTNode> ast(parser.parse());  // unique_ptr сам удалит дерево в конце
+        ast->print(cout);
     } catch (const SyntaxError &error) {
-        std::cerr << "Ошибка: " << error.what() << '\n';
+        cerr << "Ошибка: " << error.what() << '\n';
         return 1;
     }
 
