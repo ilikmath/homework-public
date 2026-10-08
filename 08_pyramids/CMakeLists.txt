@@ -1,10 +1,11 @@
-# 212-Терский-Илья-(Задание 8: пирамиды на 2D-плоскости, наследование, STL-список, gnuplot)
+# 212-Терский-Илья-(пирамиды на 2D-плоскости)
 
 cmake_minimum_required(VERSION 3.12)
 project(08_pyramids LANGUAGES CXX)
 
 add_executable(pyramids
     main.cpp
+    clusters.cpp
 )
 
 set_target_properties(pyramids PROPERTIES
