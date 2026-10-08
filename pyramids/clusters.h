@@ -5,6 +5,8 @@
 #include <cstdint>
 #include <vector>
 
+using namespace std;
+
 struct SecondaryPoint {  // вторичная точка — сгенерирована по Гауссу под пирамидой
     float x = 0.0f;
     float y = 0.0f;
@@ -18,11 +20,11 @@ private:
     float square_side = 1.0f;
     int column_count = 1;
     int row_count = 1;
-    std::vector<int> start;   // где в sorted начинается каждый квадрат (квадратов + 1 штука)
-    std::vector<int> sorted;  // номера точек, сложенные по квадратам
+    vector<int> start;   // где в sorted начинается каждый квадрат (квадратов + 1 штука)
+    vector<int> sorted;  // номера точек, сложенные по квадратам
 
 public:
-    SquareGrid(const std::vector<SecondaryPoint>& points, float side, float x_low, float y_low,
+    SquareGrid(const vector<SecondaryPoint>& points, float side, float x_low, float y_low,
                float x_high, float y_high);
 
     int columns() const { return column_count; }
@@ -38,14 +40,14 @@ public:
 
     int first(int cell_index) const { return start[static_cast<size_t>(cell_index)]; }  // точки квадрата: order()[first..last)
     int last(int cell_index) const { return start[static_cast<size_t>(cell_index) + 1]; }
-    const std::vector<int>& order() const { return sorted; }
+    const vector<int>& order() const { return sorted; }
 };
 
 class BitMatrix {  // матрица N×N из нулей и единиц, по 64 штуки в одном слове
 private:
     int n = 0;
     int word_count = 0;
-    std::vector<std::uint64_t> bits;
+    vector<uint64_t> bits;
 
 public:
     explicit BitMatrix(int size);
@@ -55,15 +57,15 @@ public:
 
     void set(int i, int j);
     bool get(int i, int j) const;
-    const std::uint64_t* row(int i) const;
+    const uint64_t* row(int i) const;
 };
 
-BitMatrix buildAdjacency(const std::vector<SecondaryPoint>& points, const SquareGrid& grid,
+BitMatrix buildAdjacency(const vector<SecondaryPoint>& points, const SquareGrid& grid,
                          float threshold);  // b_ij = 1, если точки ближе threshold; сторона квадрата должна быть >= threshold
 
 struct WaveResult {
-    std::vector<int> cluster;  // номер кластера каждой точки (с 1)
-    std::vector<int> wave;     // на каком шаге загорелась точка, точка поджога — 1
+    vector<int> cluster;  // номер кластера каждой точки (с 1)
+    vector<int> wave;     // на каком шаге загорелась точка, точка поджога — 1
     int clusters = 0;
 };
 
